@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<head>
+    <script>
+        function add7() {
+            //number = prompt("Type a number")
+            let number = document.getElementById("add7").value
+            number = +number + 7
+            document.getElementById("answer").innerHTML = number
+            console.log(number)
+        }
+        function multi(){
+            let num1 = document.getElementById("multi1").value
+            let num2 = document.getElementById("multi2").value
+            let product = num1 * num2
+            if(num1 == 0 || num2 == 0)
+            {
+                document.getElementById("answer").innerHTML = "You multiplied by zero dumbass"
+            }
+            else{
+                document.getElementById("answer").innerHTML = product
+            }
+            
+        }
+        function cap(){
+            let input = document.getElementById("cap").value
+            let firstchar = input.charAt(0).toUpperCase()
+            let restOfWord = input.slice(1).toLowerCase()
+            let finished = firstchar + restOfWord
+            document.getElementById("answer").innerHTML = finished
+        }
+        function lastLetter(){
+            let input = document.getElementById("last").value
+            let strLength = input.length
+            let lastLetter = input.charAt(strLength - 1)
+            lastLetter = lastLetter.fontcolor("red")
+            lastLetter = lastLetter.fontsize(6)
+            let output = `The last letter in ${input} is ${lastLetter}`
+            document.getElementById("answer").innerHTML = output
+        }
+    </script>
+
+    <style>
+        #cap, #last{
+            width: 100px;
+        }
+        .left {
+            position: absolute;
+            left: 100px;
+            top: 50px;
+            
+        }
+        .right{
+            position: absolute;
+            text-align: center;
+            left: 500px;
+            top: 50px;
+            width: 350px;
+            height: 75px;
+            background-color:cadetblue;
+            border: 1px;
+            border-style: solid;
+        }
+        .add7input{
+            width: 50px;
+        }
+
+        input{
+            margin-top: 5px;
+        }
+    </style>
+
+
+</head>
+<html>
+
+<body>
+    <div class="left">
+        <input type="number" id="add7" name="add7" class="add7input" size="5">
+        <input type="button" name="add7" value="Add 7" onclick="add7()"><br>
+        <input type="number" id="multi1" name="multi" class="add7input" size="5">
+        <input type="number" id="multi2" name="multi" class="add7input" size="5">
+        <input type="button" name="multi" value="Multiply" onclick="multi()"><br>
+        <input type="text" id="cap" name="cap" class="add7input" size="20">
+        <input type="button" name="cap" value="Capitalize" onclick="cap()"><br>
+        <input type="text" id="last" name="last" class="add7input" size="20">
+        <input type="button" name="last" value="Print Last Letter" onclick="lastLetter()">
+    </div>
+
+    <div class="right">
+        <p id="answer">Answer Here</p>
+    </div>
+
+</body>
+
+</html>
