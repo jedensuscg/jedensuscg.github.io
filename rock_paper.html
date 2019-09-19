@@ -3,17 +3,31 @@
     let paperRock = "Paper Beats Rock:";
     let paperScissor = "Scissor Beats Paper:";
     let rockScissor = "Rock Beats Scissor:";
-    let input = prompt("Pick Rock Paper or Scissors")
+    let numberOfrounds = 5;
     let playerScore = 0;
     let compScore = 0;
 
-    playGame(3);
+    playGame(numberOfrounds);
     displayScore();
     
 
     function getInput(){
-        input = input.toLowerCase();
-        return input;
+        let inputValid = false;
+        while (!inputValid){
+            let input = prompt("Pick Rock Paper or Scissors")
+            input = input.toLowerCase();
+            if(input == "rock" | input == "paper" | input == "scissor" | input == "scissors"){
+                if (input == "scissor"){
+                    input = "scissors"
+                }
+                inputValid = true;
+                return input;
+            }
+            else{
+                console.log("You typed an invalid option, try again.")
+            }
+        }
+
     }
     function displayScore(){
         if(compScore < 0 ){
@@ -46,7 +60,7 @@
     {
         return Math.floor(Math.random() * (max - min +1)) + min;
     }   
-    function playRound(computerSelection)
+    function playRound(playerselection,computerSelection)
     {
         
         let tie = false;
