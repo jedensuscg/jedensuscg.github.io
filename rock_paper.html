@@ -1,137 +1,126 @@
 <html>
-    <script>
+<script>
     let paperRock = "Paper Beats Rock:";
     let paperScissor = "Scissor Beats Paper:";
     let rockScissor = "Rock Beats Scissor:";
     let numberOfrounds = 5;
     let playerScore = 0;
     let compScore = 0;
+    let tieScore = 0;
 
     playGame(numberOfrounds);
     displayScore();
-    
 
-    function getInput(){
+
+    // Functions
+    function playGame(numRounds) {
+
+        for (let i = 0; i < numRounds; i++) {
+            playRound(getPlayerSelection(), getComputerSelection())
+
+        }
+
+    }
+
+    function playRound(playerselection, computerSelection) {
+
+        console.log(`You Chose: ${playerselection}`)
+        console.log(`Computers Chose: ${computerText(computerSelection)}`)
+
+        switch (playerselection) {
+            case "rock":
+                if (computerSelection == 1) {
+                    console.log("You Tied");
+                    ++tieScore;
+                }
+                else if (computerSelection == 2) {
+                    console.log(`${paperRock} YOU LOSE`);
+                    ++compScore;
+                }
+                else {
+                    console.log(`${rockScissor} YOU WIN`);
+                    ++playerScore;
+                }
+                break;
+            case "paper":
+                if (computerSelection == 1) {
+                    console.log(`${paperRock} YOU WIN!`);
+                    ++playerScore;
+                }
+                else if (computerSelection == 2) {
+                    console.log(`YOU TIED`);
+                    ++tieScore
+                }
+                else {
+                    console.log(`${paperScissor} YOU LOSE!`);
+                    ++compScore;
+                }
+                break;
+            case "scissors":
+                if (computerSelection == 1) {
+                    console.log(`${rockScissor} YOU LOSE!`)
+                    ++compScore;
+                }
+                else if (computerSelection == 2) {
+                    console.log(`${paperScissor} YOU WIN`)
+                    ++playerScore;
+                }
+                else {
+                    console.log(`YOU TIED`)
+                    ++tieScore
+                }
+                break;
+        }
+
+    }
+
+    function getPlayerSelection() {
         let inputValid = false;
-        while (!inputValid){
+        while (!inputValid) {
             let input = prompt("Pick Rock Paper or Scissors")
             input = input.toLowerCase();
-            if(input == "rock" | input == "paper" | input == "scissor" | input == "scissors"){
-                if (input == "scissor"){
+            if (input == "rock" | input == "paper" | input == "scissor" | input == "scissors") {
+                if (input == "scissor") {
                     input = "scissors"
                 }
                 inputValid = true;
                 return input;
             }
-            else{
+            else {
                 console.log("You typed an invalid option, try again.")
             }
         }
 
     }
-    function displayScore(){
-        if(compScore < 0 ){
-            compScore = 0;
-        }
-        if(playerScore < 0){
-            playerScore = 0;
-        }
-        
-        console.log(`Player Won ${playerScore} rounds, Computer won ${compScore} rounds`)
-        if (playerScore > compScore){
+
+    function getComputerSelection() {
+        let compInput = randomInt(1, 3);
+        return compInput;
+    }
+
+    function displayScore() {
+        console.log(`Player Won ${playerScore} rounds, Computer won ${compScore} rounds, ${tieScore} rounds were a TIE.`)
+        if (playerScore > compScore) {
             console.log("You WON the Game")
         }
-        else if(playerScore == compScore){
+        else if (playerScore == compScore) {
             console.log("You Tied the Game")
         }
         else {
             console.log("You LOST the Game")
         }
     }
-    function playGame(numRounds){
 
-        for(let i = 0; i < numRounds; i++){
-            playRound(getInput(), pickComputer())
-
-        }
-        
+    function randomInt(min, max) { // Get random integer
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    function randomInt(min, max)
-    {
-        return Math.floor(Math.random() * (max - min +1)) + min;
-    }   
-    function playRound(playerselection,computerSelection)
-    {
-        
-        let tie = false;
-        console.log(`You Chose: ${playerselection}`)
-        console.log(`Computers Chose: ${computerText(computerSelection)}`)
-        switch(playerselection) {
 
-            case "rock":
-            if (computerSelection == 1){
-                console.log("You Tied")
-                tie = true;
-            }
-            else if (computerSelection == 2){
-                console.log(`${paperRock} YOU LOSE`)
-                --playerScore;
-                ++compScore;
-            }
-            else {
-                console.log(`${rockScissor} YOU WIN`)
-                ++playerScore;
-                --compScore;
-            }
-            break;
-
-            case "paper":
-            if (computerSelection == 1){
-                console.log(`${paperRock} YOU WIN!`)
-                ++playerScore;
-                --compScore;
-            }
-            else if (computerSelection == 2){
-                console.log(`YOU TIED`)
-                tie = true;
-            }
-            else {
-                console.log(`${paperScissor} YOU LOSE!`)
-                --playerScore;
-                ++compScore;
-            }
-            break;
-
-            case "scissors":
-            if (computerSelection == 1){
-                console.log(`${rockScissor} YOU LOSE!`)
-                --playerScore;
-                ++compScore;
-            }
-            else if (computerSelection == 2){
-                console.log(`${paperScissor} YOU WIN`)
-                ++playerScore;
-                --compScore;
-            }
-            else {
-                console.log(`YOU TIED`)
-                tie = true;
-            }
-            break;
-        }
-        return tie;
-
-    } 
-    function pickComputer(){
-        let compInput = randomInt(1, 3);
-        return compInput;
-    }
-    function computerText(computerChoice){
+    function computerText(computerChoice) { // Converts computer selection from integer to string.
         let computerText;
-        if (computerChoice == 1){
+        if (computerChoice == 1) {
             computerText = "rock"
         }
-        else if (computerChoice == 2){
+        else if (computerChoice == 2) {
             computerText = "paper"
         }
         else {
@@ -139,5 +128,7 @@
         }
         return computerText;
     }
-    </script>
+    // End Functions
+</script>
+
 </html>
