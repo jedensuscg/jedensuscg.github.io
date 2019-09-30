@@ -7,23 +7,25 @@ let compScore = 0;
 let tieScore = 0;
 let round = 0;
 const buttons = document.querySelectorAll('.btn');
+const restart = document.querySelector('.restart');
+
 playGame();
 
 
 // Functions
 function playGame() {
     getPlayerSelection();
+    restart.addEventListener('click', (e) => {
+        reload();
+    });
 }
 
 function playRound(playerselection, computerSelection) {
 
     console.log(`You Chose: ${playerselection}`)
     console.log(`Computers Chose: ${computerText(computerSelection)}`)
-    round++;
+    ++round;
     console.log(`Round: ${round}`)
-    if (round > numberOfRounds) {
-        endGame();
-    }
 
     switch (playerselection) {
         case "rock":
@@ -74,17 +76,19 @@ function playRound(playerselection, computerSelection) {
 
 function getPlayerSelection() {
 
-    if (round == numberOfRounds){
-        endGame();
-    }
-    if (round < numberOfRounds) {
-
-        buttons.forEach((button) => {
-            button.addEventListener('click', (e) => {
+    //if (round < numberOfRounds) {
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            if (round <= numberOfRounds -1 ) {
                 playRound(e.target.value, getComputerSelection());
-            });
+                if ( round == numberOfRounds) {
+                    endGame();
+                }
+            }
+
         });
-    }
+    });
+    // }
 }
 function getComputerSelection() {
     let compInput = randomInt(1, 3);
@@ -134,4 +138,11 @@ function endGame() {
         });
     });
     displayScore();
+}
+
+function reload() {
+    console.log("Restarting Game")
+    playerScore = 0;
+    compScore = 0;
+    round = 0;
 }
