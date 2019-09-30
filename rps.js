@@ -7,7 +7,7 @@ let compScore = 0;
 let tieScore = 0;
 let round = 0;
 const buttons = document.querySelectorAll('.btn');
-
+playGame();
 
 
 // Functions
@@ -21,7 +21,9 @@ function playRound(playerselection, computerSelection) {
     console.log(`Computers Chose: ${computerText(computerSelection)}`)
     round++;
     console.log(`Round: ${round}`)
-
+    if (round > numberOfRounds) {
+        endGame();
+    }
 
     switch (playerselection) {
         case "rock":
@@ -72,6 +74,9 @@ function playRound(playerselection, computerSelection) {
 
 function getPlayerSelection() {
 
+    if (round == numberOfRounds){
+        endGame();
+    }
     if (round < numberOfRounds) {
 
         buttons.forEach((button) => {
