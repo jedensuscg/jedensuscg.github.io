@@ -1,4 +1,42 @@
 .container{
-    position: absolute;
+    text-align: center;
+    margin-top: 2em;
+    padding: 25px 25px 10px 25px;
+    background-color: lightsteelblue;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 4fr 1fr;
 
+}
+
+.selectButtons{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.options{
+    display: inline;
+}
+
+.btn{
+    border-radius: 5px;
+    background-color: coral;
+    padding: 5px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.options{
+    margin-top: 50px;
+}
+
+.score{
+    display: block;
+}
+
+.log{
+    display: inline;
 }

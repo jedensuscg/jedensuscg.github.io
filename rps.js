@@ -26,52 +26,63 @@ function playRound(playerselection, computerSelection) {
     console.log(`Computers Chose: ${computerText(computerSelection)}`)
     ++round;
     console.log(`Round: ${round}`)
-
+    var thisRound = document.querySelector('.currentRound');
+    
+    var roundStatus;
     switch (playerselection) {
-        case "rock":
+        case "ROCK":
             if (computerSelection == 1) {
                 console.log("You Tied");
+                roundStatus = "You Tied";
                 ++tieScore;
             }
             else if (computerSelection == 2) {
                 console.log(`${paperRock} YOU LOSE`);
+                roundStatus = "You LOST";
                 ++compScore;
             }
             else {
                 console.log(`${rockScissor} YOU WIN`);
+                roundStatus = "You WON";
                 ++playerScore;
             }
             break;
-        case "paper":
+        case "PAPER":
             if (computerSelection == 1) {
                 console.log(`${paperRock} YOU WIN!`);
+                roundStatus = "You WON";
                 ++playerScore;
             }
             else if (computerSelection == 2) {
                 console.log(`YOU TIED`);
+                roundStatus = "You Tied";
                 ++tieScore
             }
             else {
                 console.log(`${paperScissor} YOU LOSE!`);
+                roundStatus = "You LOST";
                 ++compScore;
             }
             break;
-        case "scissors":
+        case "SCISSORS":
             if (computerSelection == 1) {
                 console.log(`${rockScissor} YOU LOSE!`)
+                roundStatus = "You LOST";
                 ++compScore;
             }
             else if (computerSelection == 2) {
                 console.log(`${paperScissor} YOU WIN`)
+                roundStatus = "You WON";
                 ++playerScore;
             }
             else {
                 console.log(`YOU TIED`)
+                roundStatus = "You Tied";
                 ++tieScore
             }
             break;
     }
-
+    thisRound.textContent=`You Chose: ${playerselection} : Computer Chose: ${computerText(computerSelection)}` + "\n" + `${roundStatus} this round.`
 }
 
 function getPlayerSelection() {
@@ -118,13 +129,13 @@ function computerText(computerChoice) // Converts computer selection from intege
 {
     let computerText;
     if (computerChoice == 1) {
-        computerText = "rock"
+        computerText = "ROCK"
     }
     else if (computerChoice == 2) {
-        computerText = "paper"
+        computerText = "PAPER"
     }
     else {
-        computerText = "scissor"
+        computerText = "SCISSORS"
     }
     return computerText;
 }
