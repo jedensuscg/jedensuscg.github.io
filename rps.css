@@ -1,9 +1,15 @@
+body{
+    background-color: black;
+}
+
 .container{
     text-align: center;
     margin-top: 2em;
+    margin-right: 10%;
+    margin-left: 10%;
     padding: 25px 25px 10px 25px;
-    background-color: lightsteelblue;
-    border-color: black;
+    background-color: black;
+    border-color: orangered;
     border-style: solid;
     border-width: 2px;
     display: grid;
@@ -14,7 +20,6 @@
 
 .selectButtons{
     padding-top: 50px;
-    padding-bottom: 50px;
 }
 
 .options{
@@ -23,10 +28,19 @@
 
 .btn{
     border-radius: 5px;
-    background-color: coral;
+    background-color: rgb(247, 91, 35);
     padding: 5px;
     margin-left: 25px;
     margin-right: 25px;
+}
+
+.btn:hover{
+    background-color: rgb(243, 163, 134);
+    transition: all .5s;
+}
+.btn:active{
+    background-color: rgb(240, 236, 11);
+    transform: scale(1.2);
 }
 
 .options{
@@ -37,6 +51,21 @@
     display: block;
 }
 
-.log{
+h4{
+    color: chocolate;
+}
+
+
+#log{
     display: inline;
+    color: chocolate;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+.currentRound{
+    margin-top: 5px;
+    width: auto;
+    color: chocolate;
 }
