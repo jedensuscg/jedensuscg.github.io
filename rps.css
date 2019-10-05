@@ -1,24 +1,26 @@
 body{
     background-color: black;
     color: chocolate;
+    min-width: 1300px;
 }
 
 .container{
     text-align: center;
     margin-top: 2em;
-    margin-right: 10%;
-    margin-left: 10%;
+    margin-right: 2em;
+    margin-left: 2em;
     padding: 25px 25px 10px 25px;
     background-color: black;
     border-style: ridge;
     border-width: 5px;
+    border-color: chocolate;
     display: grid;
     grid-template-columns: 2fr 3fr;
     grid-template-rows: 3fr 1fr;
     height: 400px
 }
 
-.selectButtons{
+.buttonContainer{
     padding-top: 50px;
 }
 
@@ -26,22 +28,34 @@ body{
     display: inline;
 }
 
-.btn{
-    width: 95px;
+.selectionButton{
+    width: 115px;
+    height: 60px;
     border-radius: 5px;
-    background-color: rgb(247, 91, 35);
+    background-color: rgb(32, 32, 32);
     padding: 5px;
     margin-left: 10px;
     margin-right: 10px;
-}
-
-.btn:hover{
-    background-color: rgb(243, 163, 134);
+    border: 1px solid chocolate;
+    color: chocolate;
+    font-weight: 700;
     transition: all .5s;
 }
-.btn:active{
-    background-color: rgb(240, 236, 11);
+
+.selectionButton:hover{
+    background-color: chocolate;
     transform: scale(1.2);
+    color: black
+
+}
+.selectionButton:active{
+    transition: 0s;
+    transform: translateY(5px) scale(1.2);
+    border-radius: 5px;
+}
+
+.selectionButton:focus{
+    outline: 0;
 }
 .graphic{
     position: relative;
@@ -54,11 +68,20 @@ body{
 #roundNum span{
    display: block;
    position: relative;
-   padding-bottom: 25px;
    width: auto;
+   padding-bottom: 15px;
+   padding-top: 10px;
 }
-.options{
-    margin-top: 50px;
+.info{
+    position: relative;
+    bottom: -10px;
+    left: 30%;
+    width: 200px;
+    margin-top: auto;
+    border-top: 1px solid chocolate;
+    border-right: 1px solid chocolate;
+    border-left: 1px solid chocolate;
+    
 }
 .scoreCont{
     margin-top: -15px;
@@ -71,6 +94,7 @@ body{
     width: 80%;
     height: 100%;
     padding: 1px;
+    background-color: rgb(32, 32, 32);
 }
 
 .score{
@@ -82,16 +106,21 @@ body{
 
 #playerScore{
     width: 40%;
+
 }
 
 #playerScore span{
     display: block;
     position: relative;
-    padding-bottom: 25px;
     font-weight: 600;
+    padding-bottom: 15px;
+    padding-top: 10px;
+
 }
  #head{
     text-decoration: underline;
+    border-bottom: 1px solid chocolate;
+    padding-bottom: 0px;
      
  }
 
@@ -103,7 +132,9 @@ body{
 #compScore span {
     display: block;
     position: relative;
-    padding-bottom: 25px;
+    padding-bottom: 15px;
+    padding-top: 10px;
+    font-weight: 700;
 }
 
 .totalScore {
@@ -115,7 +146,7 @@ body{
 }
 
 #runningScore {
-    left: 5%;
+    left: 1%;
 
 }
 
@@ -133,11 +164,26 @@ body{
     background-color: rgb(32, 32, 32)
 }
 
+.scoreLineLeft{
+    position: relative;
+    float: left;
+    background-color: chocolate;
+    height: 90%;
+    width: 3px;
+    left: 15%;
+    margin-top: 5%;
+
+}
+.newPlayer, .newComp, .newRound{
+    font-size: 14pt;
+    margin: -2pt;
+}
+
 .scoreLine{
     position: relative;
     float: left;
     background-color: chocolate;
-    height: 80%;
+    height: 90%;
     width: 3px;
     left: 55%;
     margin-top: 5%;
