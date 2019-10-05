@@ -10,23 +10,31 @@
 <body>
     <div class="container" id="container">
         <div class="scoreCont">
-            <h4>SCORE</h4>
-            <div class="score">
+            <h4>SCOREBOARD</h4>
+            <div class="scoreBoard">
+                    <div class="score" id="roundNum"><span id="head">ROUND</span></div>
+                    <div class="score" id="playerScore"><span id="head">PLAYER SCORE</span></div>
+                    <div class="scoreLine"></div>
+                    <div class="score" id="compScore"><span id="head">COMPUTER SCORE</span></div>
+                    <span class="totalScore" id="runningScore">SCORE</span>
+                    <span class="totalScore" id="scorePlayer">0</span>
+                    <span class="totalScore" id="scoreComp">0</span>
             </div>
         </div>
         <div class="selectButtons" id="selectButtons">
             <input type='button' class="btn" value='ROCK'>
             <input type='button' class="btn" value='PAPER'>
             <input type='button' class="btn" value='SCISSORS'>
+            <div class="graphic">Images go here</div>
         </div>
 
         <div class="options">
             <input type='button' class="restart" value='Restart'>
         </div>
         <div class="log">
-                <p id="log">CURRENT ROUND</p>
-                <pre class="currentRound"></pre>
-            </div>
+            <p id="log">CURRENT ROUND</p>
+            <pre class="roundLog"></pre>
+        </div>
 
 
     </div>

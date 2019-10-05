@@ -1,5 +1,6 @@
 body{
     background-color: black;
+    color: chocolate;
 }
 
 .container{
@@ -9,13 +10,12 @@ body{
     margin-left: 10%;
     padding: 25px 25px 10px 25px;
     background-color: black;
-    border-color: orangered;
-    border-style: solid;
-    border-width: 2px;
+    border-style: ridge;
+    border-width: 5px;
     display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 4fr 1fr;
-
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: 3fr 1fr;
+    height: 400px
 }
 
 .selectButtons{
@@ -27,11 +27,12 @@ body{
 }
 
 .btn{
+    width: 95px;
     border-radius: 5px;
     background-color: rgb(247, 91, 35);
     padding: 5px;
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .btn:hover{
@@ -42,30 +43,129 @@ body{
     background-color: rgb(240, 236, 11);
     transform: scale(1.2);
 }
+.graphic{
+    position: relative;
+    top: 20%;
+}
 
+#roundNum{
+    width: 10%
+}
+#roundNum span{
+   display: block;
+   position: relative;
+   padding-bottom: 25px;
+   width: auto;
+}
 .options{
     margin-top: 50px;
 }
-
-.score{
-    display: block;
+.scoreCont{
+    margin-top: -15px;
 }
 
-h4{
+.scoreBoard{
+    position: relative;
+    display: inline-block;
+    border: 2px solid chocolate;
+    width: 80%;
+    height: 100%;
+    padding: 1px;
+}
+
+.score{
+   display: inline-block;
+    color: chocolate;
+    vertical-align: top;
+}
+
+
+#playerScore{
+    width: 40%;
+}
+
+#playerScore span{
+    display: block;
+    position: relative;
+    padding-bottom: 25px;
+    font-weight: 600;
+}
+ #head{
+    text-decoration: underline;
+     
+ }
+
+#compScore{
+    width: 40%;
     color: chocolate;
 }
 
+#compScore span {
+    display: block;
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.totalScore {
+    display: inline;
+    position: absolute;
+    bottom: 5px;
+    font-weight: 700;
+    font-size: 14pt;
+}
+
+#runningScore {
+    left: 5%;
+
+}
+
+#scorePlayer {
+    left: 30%;
+    border: 1px solid chocolate;
+    padding: 5px;
+    background-color: rgb(32, 32, 32)
+}
+
+#scoreComp {
+    left: 75%;
+    border: 1px solid chocolate;
+    padding: 5px;
+    background-color: rgb(32, 32, 32)
+}
+
+.scoreLine{
+    position: relative;
+    float: left;
+    background-color: chocolate;
+    height: 80%;
+    width: 3px;
+    left: 55%;
+    margin-top: 5%;
+
+}
+h4{
+    color: chocolate;
+    margin-top: -5px;
+}
+
+.score span{
+    font-weight: 600;
+
+}
 
 #log{
     display: inline;
-    color: chocolate;
     font-weight: 700;
     text-align: center;
+
 }
 
 
-.currentRound{
+.roundLog{
+    font-size: 14pt;
     margin-top: 5px;
     width: auto;
-    color: chocolate;
+    border: 1px solid chocolate;
+    background-color: rgb(32, 32, 32);
+    height: auto;
 }
