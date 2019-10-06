@@ -10,7 +10,7 @@
 <body>
     <div class="container" id="container">
         <div class="scoreCont">
-            <h4>SCOREBOARD</h4>
+            <h4>ROCK - PAPER - SCISSORS</h4>
             <div class="scoreBoard">
                     <div class="score" id="roundNum"><span id="head">ROUND</span></div>
                     <div class="scoreLineLeft"></div>
@@ -26,14 +26,20 @@
             <input type='button' class="selectionButton" value='ROCK'>
             <input type='button' class="selectionButton" value='PAPER'>
             <input type='button' class="selectionButton" value='SCISSORS'>
-            <input type='button' class="restart" value='Restart'>
-            <div class="graphic">Images go here</div>
+            <input type='button' class="restart" id="restart" value='RESTART'>
+            <div class="graphicCont">
+                <div id="winnerFlag" class="inProgress">WINNER</div>
+                <div class="image" id="playerImg"><span class="imgTitle" id="playerTitle">PLAYER</span><img id="playerSRC" src="images/transparent.png"></div>
+                <div class="image" id="spacer"></div>
+                <div class="image" id="compImg"><img id="compSRC" src="images/transparent.png"><span  id="compTitle" class="imgTitle">COMPUTER</span></div>
+            </div>
         </div>
-
-        <div class="info">
+        <a href="http://www.theodinproject.com" class="info" target="_blank">
+        <div class="">
             <span> Created by James Edens</span><br>
-            <span> The Odin Project</span>
+            <span>The Odin Project</span>
         </div>
+        </a>
         <div class="log">
             <p id="log">CURRENT ROUND</p>
             <pre class="roundLog"></pre>

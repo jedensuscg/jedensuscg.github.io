@@ -11,10 +11,21 @@ const restart = document.querySelector('.restart');
 roundColumn = document.querySelector('#roundNum');
 playerColumn = document.querySelector('#playerScore');
 compColumn = document.querySelector('#compScore');
+let roundLog = document.querySelector('.roundLog');
+const colorWin = "#008000";
+const colorLose = "#ff0000";
+const colorTie = "#ffff00";
+
 const winner = {
     PLAYER: 'player',
     COMPUTER: 'computer',
     TIE: 'tie'
+}
+
+const image = {
+    ROCK: 'images/rock.png',
+    PAPER: 'images/paper.png',
+    SCISSORS: 'images/scissors.png'
 }
 
 playGame();
@@ -34,7 +45,7 @@ function playRound(playerselection, computerSelection) {
     console.log(`Computers Chose: ${computerText(computerSelection)}`)
     ++round;
     console.log(`Round: ${round}`)
-    let roundLog = document.querySelector('.roundLog');
+
 
     let win;
 
@@ -103,6 +114,7 @@ function playRound(playerselection, computerSelection) {
     }
     roundLog.textContent = `You Chose: ${playerselection} : Computer Chose: ${computerText(computerSelection)}` + "\n" + `${roundStatus} this round.`;
     displayScore(win);
+    displayImage(playerselection, computerSelection);
 }
 
 function getPlayerSelection() {
@@ -144,20 +156,28 @@ function displayScore(win) {
     if (win == winner.PLAYER) {
         playerWin = "W";
         computerWin = "L";
-        playerSpan.style.color = "green";
-        compSpan.style.color = "red";
+        playerSpan.style.color = colorWin;
+        compSpan.style.color = colorLose;
+        document.getElementById("playerTitle").style.backgroundColor = colorWin;
+        document.getElementById("compTitle").style.backgroundColor = colorLose;
     }
     if (win == winner.COMPUTER) {
         computerWin = "W";
         playerWin = "L";
-        playerSpan.style.color = "red";
-        compSpan.style.color = "green";
+        playerSpan.style.color = colorLose;
+        compSpan.style.color = colorWin;
+        document.getElementById("playerTitle").style.backgroundColor = colorLose;
+        document.getElementById("compTitle").style.backgroundColor = colorWin;
     }
     if (win == winner.TIE) {
         playerWin = "T";
         computerWin = "T";
-        playerSpan.style.color = "yellow";
-        compSpan.style.color = "yellow";
+        playerSpan.style.color = colorTie;
+        compSpan.style.color = colorTie;
+        document.getElementById("playerTitle").style.backgroundColor = colorTie;
+        document.getElementById("compTitle").style.backgroundColor = colorTie;
+        document.getElementById("compTitle").style.color = "black";
+        document.getElementById("playerTitle").style.color = "black";
     }
 
     playerSpan.textContent = playerWin;
@@ -173,18 +193,53 @@ function displayScore(win) {
 
 }
 
+function displayImage(playerselection, computerSelection){
+    console.log("selection:" + computerSelection)
+    if(playerselection == 'PAPER') {
+        document.getElementById("playerSRC").src = image.PAPER;
+    }
+    if(playerselection == 'ROCK') {
+        document.getElementById("playerSRC").src = image.ROCK;
+    }
+    if(playerselection == 'SCISSORS') {
+        document.getElementById("playerSRC").src = image.SCISSORS;
+    }
+
+    if(computerSelection == 2) {
+        document.getElementById("compSRC").src = image.PAPER;
+    }
+    if(computerSelection == 1) {
+        document.getElementById("compSRC").src = image.ROCK;
+    }
+    if(computerSelection == 3) {
+        document.getElementById("compSRC").src = image.SCISSORS;
+    }
+
+}
 
 function finalScore() {
-    console.log(`Player Won ${playerScore} rounds, Computer won ${compScore} rounds, ${tieScore} rounds were a TIE.`)
+    let endgameMessage = `Player Won ${playerScore} rounds, Computer won ${compScore} rounds, ${tieScore} rounds were a TIE.`
+    let endgameWinner;
+    let winFlag = document.getElementById("winnerFlag");
     if (playerScore > compScore) {
-        console.log("You WON the Game")
+        endgameWinner = "You WON the Game";
+        endgameColor = colorWin;
+        winFlag.classList.remove("inProgress");
+        winFlag.classList.add("playerWin");
     }
     else if (playerScore == compScore) {
-        console.log("You Tied the Game")
+        endgameWinner = "You Tied the Game";
+        endgameColor = colorTie;
     }
     else {
-        console.log("You LOST the Game")
+        endgameWinner = "You LOST the Game"
+        endgameColor = colorLose;
+        winFlag.classList.remove("inProgress");
+        winFlag.classList.add("compWin");
     }
+    roundLog.textContent = `${endgameMessage} \n ${endgameWinner}`
+    roundLog.style.color = endgameColor;
+
 }
 
 function randomInt(min, max) // Get random integer
@@ -223,6 +278,23 @@ function reload() {
     playerScore = 0;
     compScore = 0;
     round = 0;
+    roundLog.textContent = "";
+    roundLog.style.color = "";
+
+    document.getElementById("playerTitle").style.backgroundColor = "";
+    document.getElementById("compTitle").style.backgroundColor = "";
+    document.getElementById("compTitle").style.color = "";
+    document.getElementById("playerTitle").style.color = "";
+    if(document.getElementById("winnerFlag").classList.contains("playerWin")){
+        document.getElementById("winnerFlag").classList.remove("playerWin");
+    }
+    if(document.getElementById("winnerFlag").classList.contains("compWin")){
+        document.getElementById("winnerFlag").classList.remove("compWin");
+    }
+    document.getElementById("winnerFlag").classList.add("inProgress");
+
+
+
     childrenP = document.querySelectorAll(".newPlayer");
     childrenC = document.querySelectorAll(".newComp");
     parentP = document.getElementById("playerScore");
@@ -232,7 +304,6 @@ function reload() {
     childrenP.forEach(child => parentP.removeChild(child));
     childrenC.forEach(child => parentC.removeChild(child));
     childrenRound.forEach(child => parentRound.removeChild(child));
-
-
-
+    document.getElementById("playerSRC").src = "images/transparent.png";
+    document.getElementById("compSRC").src = "images/transparent.png";
 }
