@@ -1,0 +1,345 @@
+body{
+    background-color: black;
+    color: chocolate;
+    min-width: 1500px;
+}
+
+.container{
+    text-align: center;
+    margin-top: 3em;
+    margin-right: 2em;
+    margin-left: 2em;
+    padding: 25px 25px 10px 25px;
+    background-color: black;
+    border-style: ridge;
+    border-width: 5px;
+    border-color: chocolate;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: 3fr 1fr;
+    height: 550px
+}
+
+.buttonContainer{
+    position: relative;
+    padding-top: 50px;
+}
+
+.options{
+    display: inline;
+}
+
+input[type="button"]{
+    width: 115px;
+    height: 60px;
+    border-radius: 5px;
+    background-color: rgb(32, 32, 32);
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid chocolate;
+    color: chocolate;
+    font-weight: 700;
+    transition: all .5s;
+}
+
+input[type="button"]:hover{
+    background-color: chocolate;
+    transform: scale(1.2);
+    color: black
+
+}
+input[type="button"]:active{
+    transition: 0s;
+    transform: translateY(5px) scale(1.1);
+}
+
+input[type="button"]:focus{
+    outline: 0;
+}
+
+#restart{
+    position: relative;
+    left: 100px;
+}
+
+.graphicCont{
+    position: relative;
+    top: 20%;
+}
+    
+.image {
+    display: inline;
+}
+
+#winnerFlag{
+    font-size: 40pt;
+    color: green;
+    font-weight: 900;
+    border-radius: 20px;
+    background-color: rgb(255, 251, 0);
+    z-index: 1;
+    
+}
+ .playerWin{
+    position: absolute;
+    left: 28%;
+    bottom: 28%;
+    transform: rotateZ(-45deg);
+ }
+
+ .compWin{
+    position: absolute;
+    left: 45%;
+    bottom: 28%;
+    transform: rotateZ(45deg);
+}
+
+.inProgress {
+    position: absolute;
+    visibility: hidden;
+}
+
+.imgTitle{
+    color: white;
+    padding: 8px;
+    border: 3px outset chocolate;
+    border-radius: 10px;
+    font-weight: 700;
+}
+#playerSRC{
+    vertical-align: text-top;
+
+    width: 100px;
+    height: 100px;
+}
+#compImg img{
+    vertical-align: text-top;
+    width: 100px;
+    height: 100px;
+    transform: scaleX(-1);
+}
+
+#spacer{
+    width: 100px;
+    display: inline-block;
+}
+
+#roundNum{
+    width: 15%
+}
+#roundNum span{
+   display: block;
+   position: relative;
+   width: auto;
+   right: 10px;
+   padding-bottom: 15px;
+   padding-top: 10px;
+}
+
+.info{
+    overflow: hidden;
+    font-size: 0;
+    background-color: white;
+    position: relative;
+    bottom: -10px;
+    left: 30%;
+    height: 10px;
+    width: 200px;
+    margin-top: auto;
+    border-top: 1px solid chocolate;
+    border-right: 1px solid chocolate;
+    border-left: 1px solid chocolate;
+    transition: height 1s, font-size 1s, color 1s, border-top 1s, border-right 1s, border-left 1s;
+}
+
+
+.info:hover{
+    font-size: 12pt;
+    color: black;
+    background-color: white;
+    position: relative;
+    bottom: -10px;
+    left: 30%;
+    height: 50px;
+    width: 200px;
+    margin-top: auto;
+    border-top: 4px solid chocolate;
+    border-right: 4px solid chocolate;
+    border-left: 4px solid chocolate;
+}
+
+.scoreCont{
+    margin-top: -15px;
+    margin-left: -20px;
+
+}
+
+.scoreBoard{
+    position: relative;
+    display: inline-block;
+    border: 1px solid chocolate;
+    width: 70%;
+    height: 100%;
+    padding: 1px;
+    background-color: rgb(32, 32, 32);
+    box-shadow: 5px 5px rgb(124, 61, 16);
+}
+
+.score{
+   display: inline-block;
+    color: chocolate;
+    vertical-align: top;
+}
+
+
+#playerScore{
+    width: 40%;
+
+}
+
+#playerScore span{
+    display: block;
+    position: relative;
+    font-weight: 600;
+    padding-bottom: 15px;
+    padding-top: 10px;
+
+}
+ #head{
+    text-decoration: underline;
+    padding-bottom: 0px;
+     
+ }
+
+#compScore{
+    width: 40%;
+    color: chocolate;
+}
+
+#compScore span {
+    display: block;
+    position: relative;
+    padding-bottom: 15px;
+    padding-top: 10px;
+    font-weight: 700;
+}
+
+.totalScore {
+    display: inline;
+    position: absolute;
+    bottom: 5px;
+    color: black;
+    border: 1px solid white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+    font-size: 16pt;
+    font-weight: 900;
+    background-color: chocolate
+}
+
+#runningScore {
+    left: 1%;
+
+}
+
+#scorePlayer {
+    left: 35%;
+    color: black;
+    border: 1px solid white;
+    padding: 5px;
+    width: 20px;
+    font-size: 16pt;
+    font-weight: 900;
+    background-color: chocolate
+}
+
+#scoreComp {
+    left: 75%;
+    color: black;
+    border: 1px solid white;
+    padding: 5px;
+    width: 20px;
+    font-size: 16pt;
+    font-weight: 900;
+    background-color: chocolate
+}
+
+.scoreLineLeft{
+    position: relative;
+    float: left;
+    background-color: chocolate;
+    height: 90%;
+    width: 3px;
+    left: 20%;
+    margin-top: 5%;
+
+}
+.playerRoundStatus, .compRoundStatus, .roundNumberScorboard{
+    font-size: 14pt;
+    margin: -2pt;
+}
+
+.scoreLine{
+    position: relative;
+    float: left;
+    background-color: chocolate;
+    height: 90%;
+    width: 3px;
+    left: 55%;
+    margin-top: 5%;
+
+}
+#title{
+    position: relative;
+    left: 75%;
+    width: 100%;
+    top: -10%;
+    background-color: white;
+    color: rgb(32, 32, 32);
+    margin-top: -10px;
+    margin-bottom: -15px;
+
+    border: 2px solid chocolate;
+    padding: 0px;
+}
+
+h4{
+    margin-bottom: 2px;
+    margin-top: 5px;
+    font-size: 20pt;
+    font: outline;
+    text-shadow:
+    -1px -1px 0 chocolate,
+    1px -1px 0 chocolate,
+    -1px 1px 0 chocolate,
+    1px 1px 0 chocolate;
+}
+#subtitle{
+    font-size: 14pt;
+}
+
+.score span{
+    font-weight: 600;
+
+}
+
+#log{
+    display: inline;
+    font-weight: 700;
+    text-align: center;
+
+}
+
+
+.roundLog{
+    font-size: 14pt;
+    margin-top: 5px;
+    margin-left: 15px;
+    width: auto;
+    border: 1px solid chocolate;
+    background-color: rgb(32, 32, 32);
+    height: auto;
+}
