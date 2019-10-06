@@ -5,6 +5,7 @@ let numberOfRounds = 5;
 let playerScore = 0;
 let compScore = 0;
 let tieScore = 0;
+let checkEndgame = false;
 let round = 0;
 const buttons = document.querySelectorAll('.selectionButton');
 const restart = document.querySelector('.restart');
@@ -122,30 +123,16 @@ function updateScores(playerselection, computerSelection) {
 
 function checkForWinner() {
     if(compScore == 5 || playerScore == 5) {
+        checkEndgame = true;
         endGame();
     }
 }
-
-/* function playRound() {
-    let scoreboardClear = 0;
-    buttons.forEach((button) => {
-        button.addEventListener('click', (e) => {
-            if (scoreboardClear <= 5) {
-                console.log("scoreboardClear:" + scoreboardClear)
-                updateScores(e.targetvalue, getComputerSelection());
-                scoreboardClear++;
-            }
-            if (scoreboardClear > 5) {
-                scoreboardClear = 0;
-                clearScoreboard();
-                updateScores(e.target.value, getComputerSelection());
-                scoreboardClear++;
-            } */
 
 function playRound() {
 
     buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
+            if(!checkEndgame){
             if(round == 0){
                 updateScores(e.target.value, getComputerSelection());
             }
@@ -155,7 +142,8 @@ function playRound() {
             else if(round % 5 == 0){
                 clearScoreboard();
                 updateScores(e.target.value, getComputerSelection());
-            }       
+            }  
+        }     
         });
     });
 
@@ -302,10 +290,8 @@ function computerText(computerChoice) // Converts computer selection from intege
 }
 
 function endGame() {
-
-    buttons.forEach((button) => {
+ buttons.forEach((button) => {
         button.removeEventListener('click', (e) => {
-            finalScore();
         });
     });
     finalScore();
@@ -320,6 +306,10 @@ function reload() {
     round = 0;
     roundLog.textContent = "";
     roundLog.style.color = "";
+    checkEndgame = false;
+    document.querySelector('#scoreComp').textContent = compScore;
+    document.querySelector('#scorePlayer').textContent = playerScore;
+    clearScoreboard();
 
     document.getElementById("playerTitle").style.backgroundColor = "";
     document.getElementById("compTitle").style.backgroundColor = "";
@@ -333,7 +323,7 @@ function reload() {
     }
     document.getElementById("winnerFlag").classList.add("inProgress");
 
-    clearScoreboard();
+    
     
     document.getElementById("playerSRC").src = "images/transparent.png";
     document.getElementById("compSRC").src = "images/transparent.png";
