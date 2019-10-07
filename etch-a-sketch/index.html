@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 
 <HEAD>
-    <script src="main.js" defer></script>
+    <script src="main.js" async></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </HEAD>
 
 <BODY>
     <div class="topBar">
+        <div id="colorPicker">
+            <div data-color="gridSquareBlack" class="inkSwatch" id="blackInk"></div>
+            <div data-color="gridSquareRed" class="inkSwatch" id="redInk"></div>
+            <div data-color="gridSquareBlue" class="inkSwatch" id="blueInk"></div>
+            <div data-color="gridSquareGreen" class="inkSwatch" id="greenInk"></div>
+        </div>
         <div class="options">
             <div id="gridSizeInput" class="inputDiv">
                 <span class="inputLabel" id="gridSizeLabel">Board Resolution</span>
-                <input type="numrber" class="inputField" id="gridSize" value="16">
+                <input type="number" class="inputField" id="gridSize" value="50">
             </div>
             <div id="squareSizeInput" class="inputDiv">
-                <span class="inputLabel" id="squareizeLabel">Size of Board</span>
-                <input type="number" class="inputField" id="squareSize" value="400">
+                <span class="inputLabel" id="squaresizeLabel">Size of Board</span>
+                <input type="number" class="inputField" id="squareSize" value="800">
+            </div>
+            <div id="shiftDrawInput" class="inputDiv">
+                <span class="inputLabel" id="shiftDrawLabel">Hold Shift to Draw</span>
+                <input type="checkbox" id="shiftDrawCheck" checked>
             </div>
             <input type="button" value="RESET BOARD" id="erase">
+
+
         </div>
         <div class="information">
+            <span class="infoText" id="directions"><u>How to Draw:</u><br> Hold shift and drag in the box. You can unselect "Hold Shift To Draw", and then hold shift to stop drawing.</span>
+            <span class="infoText" id="statHeader">Drawing Board Specifications</span>
             <span class="infoText" id="resolutionInfo"></span>
             <span class="infoText" id="boardSize"></span>
             <span class="infoText" id="totalSquares"></span>
