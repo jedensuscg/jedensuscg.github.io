@@ -9,6 +9,7 @@ let gridSize = 50;
 console.log(gridSize)
 let classColors = ["gridSquareBlack", "gridSquareRed", "gridSquareBlue", "gridSquareGreen"]
 let drawInk = function (e) {
+
     if (shiftToDraw.checked == true) {
         if (shiftKeyPressed) {
             console.log(checkForExistingColor(e))
@@ -41,17 +42,17 @@ function checkForExistingColor(event) {
         containsColor = true;
         console.log(classColors[0])
     }
-   else if (event.target.classList.contains(classColors[1])) {
+    else if (event.target.classList.contains(classColors[1])) {
         classToRemove = classColors[1];
         containsColor = true;
         console.log(classColors[1])
     }
-   else if (event.target.classList.contains(classColors[2])) {
+    else if (event.target.classList.contains(classColors[2])) {
         classToRemove = classColors[2];
         containsColor = true;
         console.log(classColors[2])
     }
-   else if (event.target.classList.contains(classColors[3])) {
+    else if (event.target.classList.contains(classColors[3])) {
         classToRemove = classColors[3];
         containsColor = true;
         console.log(classColors[3])
@@ -78,7 +79,7 @@ function generateGrid(currentGridSize) {
     for (let i = 0; i < currentGridSize; i++) {
         let row = document.createElement("div");
         row.className = "row";
-        for (let x = 0; x <= currentGridSize; x++) {
+        for (let x = 0; x < currentGridSize; x++) {
             let cell = document.createElement("div")
             cell.className = "gridSquare";
             row.appendChild(cell);
@@ -92,13 +93,13 @@ function addSingleListeners() {
     document.getElementById("erase").addEventListener("click", eraseSquares)
 
     //Add shift key listener
-    window.addEventListener('keydown', (e) => {
-        if (e.keyCode == 16) {
+    window.addEventListener('mousedown', (e) => {
+        if (e) {
             shiftKeyPressed = true;
         }
     });
-    window.addEventListener('keyup', (e) => {
-        if (e.keyCode == 16) {
+    window.addEventListener('mouseup', (e) => {
+        if (e) {
             shiftKeyPressed = false;
         }
     })
@@ -106,9 +107,21 @@ function addSingleListeners() {
     //Add color swatch listeners
     colors = document.querySelectorAll(".inkSwatch");
     colors.forEach(color => {
-        color.addEventListener('click', (e) => {
+        color.addEventListener('mousedown', (e) => {
             inkColor = e.target.getAttribute("data-color");
+            console.log(inkColor)
+            color.classList.add("inkSwatchSelected")
+            deselectOtherColors();
         });
+    })
+}
+function deselectOtherColors() {
+    console.log(inkColor)
+    colors.forEach(col => {
+        console.log(col.getAttribute("data-color"))
+        if (col.getAttribute("data-color") != inkColor) {
+            col.classList.remove("inkSwatchSelected")
+        }
     })
 }
 
@@ -137,15 +150,16 @@ function changeSize() {
     let grid = document.getElementById("container");
     boardSize = document.getElementById("squareSize").value;
     grid.innerHTML = "";
-    gridSize = newSize = document.getElementById("gridSize").value;
+    gridSize = document.getElementById("gridSize").value;
     console.log(changeSize)
     grid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`
     grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`
     grid.style.setProperty('--grid-squares', gridSize);
     start();
 
+
     boardSize = boardSize + "px";
-    grid.style.setProperty('--grid-size', boardSize);
+    document.documentElement.style.setProperty('--grid-size', boardSize);
 
 }
 

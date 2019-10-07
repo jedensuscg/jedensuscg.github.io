@@ -1,18 +1,59 @@
+:root {
+    --grid-size: 500px;
+    --border-sides-width: 30px;
+    --border-bottom-width: 100px;
+}
+*{
+    box-sizing: border-box;
+}
+
 body{
     min-width: 800px;
     --ink-color: black;
 }
+
+#boardWrapper{
+    position: absolute;
+    width: 100%;
+    align-content: center;
+}
 .container{
+    box-sizing: unset;
+    position: relative;
     --grid-squares: 50;
     align-self: center;
-    border: 1px solid blue;
-    margin: auto;
-    --grid-size: 800px;
+    border: var(--border-sides-width) solid rgb(255, 0, 0);
+    border-bottom: var(--border-bottom-width) solid rgb(255, 0, 0);
+    margin: auto auto 200px auto;
+    border-radius: 25px;
     width: var(--grid-size);
     height: var(--grid-size);
     display: grid;
+    grid-gap: 0px;
     grid-template-columns: repeat(var(--grid-squares), 1fr);
     grid-template-rows: repeat(var(--grid-squares), 1fr);
+    background-color: lightgray;
+}
+
+.author {
+    padding-top: 2px;
+    height:calc((var(--border-bottom-width) *.5) - 5px);
+    width:calc(var(--grid-size) + var(--border-sides-width));
+}
+
+
+#bottomPanel{
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    bottom:260px;
+    width: calc(var(--grid-size) + var(--border-sides-width));
+    height: calc(var(--border-bottom-width) *.5);
+    background-color: rgb(39, 38, 38);
+    color: white;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    font-size: calc(var(--grid-size) * .021);
 }
 .topBar{
     min-width: 1200px;
@@ -58,13 +99,18 @@ body{
     padding-bottom: 5px;
 }
 #colorPicker{
+    box-sizing: unset;
     position: relative;
     display: grid;
+    border-width: 5px;
+    border-color: gray;
+    border-style: solid;
     left: 100%;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     width: 100px;
     height: 100px;
+  
 }
 #blackInk {
     grid-area: 1 / 1 / 2 / 2;
@@ -87,12 +133,19 @@ body{
 .inkSwatch {
     height: 50px;
     width: 50px;
-    box-sizing: border-box;
 
 }
 .inkSwatch:hover{
     border: 2px solid yellow;
     transform: scale(1.2);
+}
+
+.inkSwatch:active{
+    border: 2px solid purple;
+}
+
+.inkSwatchSelected{
+    border: 3px solid yellow;
 }
 
 .infoText{
@@ -101,6 +154,7 @@ body{
 .gridSquare{
     min-height: calc(var(--grid-size) / var(--grid-squares));
     min-width: calc(var(--grid-size) / var(--grid-squares));
+    border: 1px solid rgb(202, 200, 200);
 }
 .gridSquareBlack{
     background-color: black;
@@ -123,5 +177,12 @@ body{
 }
 
 .inputField {
-    width: 50px;;
+    width: 65px;;
+}
+
+.circle{
+    position: relative;
+    min-width: calc(800px / 16);
+    min-height: calc(800px / 16);
+    background-color: black;
 }
