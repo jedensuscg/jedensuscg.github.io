@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<HEAD>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</HEAD>
+
+<BODY>
+    <div class="topBar">
+        <div class="options">
+            <div id="gridSizeInput" class="inputDiv">
+                <span class="inputLabel" id="gridSizeLabel">Board Resolution</span>
+                <input type="numrber" class="inputField" id="gridSize" value="16">
+            </div>
+            <div id="squareSizeInput" class="inputDiv">
+                <span class="inputLabel" id="squareizeLabel">Size of Board</span>
+                <input type="number" class="inputField" id="squareSize" value="400">
+            </div>
+            <input type="button" value="RESET BOARD" id="erase">
+        </div>
+        <div class="information">
+            <span class="infoText" id="resolutionInfo"></span>
+            <span class="infoText" id="boardSize"></span>
+            <span class="infoText" id="totalSquares"></span>
+        </div>
+    </div>
+
+    <div class="container" id="container">
+
+    </div>
+
+</BODY>

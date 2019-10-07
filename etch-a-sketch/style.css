@@ -1,0 +1,59 @@
+
+.container{
+    --grid-squares: 16;
+    align-self: center;
+    border: 1px solid blue;
+    margin: auto;
+    --grid-size: 400px;
+    width: var(--grid-size);
+    height: var(--grid-size);
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+}
+.topBar{
+    display: grid;
+    margin: auto;
+    padding-bottom: 50px;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+.options{
+    text-align: right;
+}
+
+.information{
+    position: relative;
+    top: 1em;
+    left: 10em;
+    background-color: bisque;
+    width: 300px;
+    border: 2px inset black;
+    box-shadow: 
+        inset 3px 3px rgba(114, 2, 2, 0.986),
+        inset -3px -3px rgba(114, 2, 2, 0.986);
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.infoText{
+    display: block;
+}
+.gridSquare{
+    min-height: calc(var(--grid-size) / var(--grid-squares));
+    min-width: calc(var(--grid-size) / var(--grid-squares));
+}
+.gridSquareHover{
+    background-color: black;
+}
+
+.erase{
+    position: relative;
+}
+.inputDiv{
+    padding-bottom: 2px;
+}
+
+.inputField {
+    width: 50px;;
+}
