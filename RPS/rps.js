@@ -1,21 +1,94 @@
-let paperRock = "Paper Beats Rock:";
-let paperScissor = "Scissor Beats Paper:";
-let rockScissor = "Rock Beats Scissor:";
-let numberOfRounds = 5;
-let playerScore = 0;
-let compScore = 0;
-let tieScore = 0;
-let checkEndgame = false;
-let round = 0;
+//#region CONST DECLARATIONS
+const paperRock = "Paper Beats Rock:";
+const paperScissor = "Scissor Beats Paper:";
+const rockScissor = "Rock Beats Scissor:";
 const buttons = document.querySelectorAll('.selectionButton');
 const restart = document.querySelector('.restart');
-roundColumn = document.querySelector('#roundNum');
-playerColumn = document.querySelector('#playerScore');
-compColumn = document.querySelector('#compScore');
-let roundLog = document.querySelector('.roundLog');
+const roundColumn = document.querySelector('#roundNum');
+const playerColumn = document.querySelector('#playerScore');
+const compColumn = document.querySelector('#compScore');
+const roundLog = document.querySelector('.roundLog');
 const colorWin = "#008000";
 const colorLose = "#ff0000";
-const colorTie = "#ffff00";
+const COLORTIE = "#ffff00";
+//#endregion
+
+//#region MODULES AND MANAGERS
+var gameManager = (function () {
+    var isEndOFGame = false;
+    var round = 0;
+
+    function increaseRound() {
+        round++;
+    }
+
+    function resetRound() {
+        round = 0;
+    }
+
+    function endGame(bool) {
+        isEndOFGame = bool;
+    }
+
+    function getIsEndOfGame() {
+        return isEndOFGame;
+    }
+
+    function getRound() {
+        return round;
+    }
+    return {
+        getRound,
+        getIsEndOfGame,
+        resetRound,
+        increaseRound,
+        endGame,
+
+    }
+})();
+
+var scoreModule = (function () {
+    var playerScore = 0;
+    var compScore = 0;
+    var tieScore = 0;
+
+    function addPlayerScore() {
+        playerScore++;
+    }
+
+    function addCompScore() {
+        compScore++;
+    }
+
+    function addTieScore() {
+        tieScore++
+    }
+
+    function resetScores() {
+        playerScore = 0;
+        compScore = 0;
+    }
+
+    function getPlayerScore() {
+        return playerScore;
+    }
+
+    function getCompScore() {
+        return compScore;
+    }
+
+    function getTieScore() {
+        return tieScore;
+    }
+    return {
+        getTieScore,
+        getPlayerScore,
+        getCompScore,
+        addTieScore,
+        addPlayerScore,
+        addCompScore
+    }
+})();
 
 const winner = {
     PLAYER: 'player',
@@ -28,26 +101,21 @@ const image = {
     PAPER: 'images/paper.png',
     SCISSORS: 'images/scissors.png'
 }
+//#endregion
 
-playGame();
-
-
-// Functions
+//#region MAIN LOGIC AND GAME FUNCTIONS
 function playGame() {
     playRound();
     restart.addEventListener('click', (e) => {
-        reload();
+        resetGame();
     });
-    
 }
 
-function updateScores(playerselection, computerSelection) {
-
+function findRoundWinner(playerselection, computerSelection) {
     console.log(`You Chose: ${playerselection}`)
     console.log(`Computers Chose: ${computerText(computerSelection)}`)
-    ++round;
-    console.log(`Round: ${round}`)
-
+    gameManager.increaseRound();
+    console.log(`Round: ${gameManager.getRound()}`)
 
     let roundWinner;
 
@@ -58,19 +126,19 @@ function updateScores(playerselection, computerSelection) {
                 console.log("You Tied");
                 roundStatus = "You Tied";
                 roundWinner = winner.TIE;
-                ++tieScore;
+                scoreModule.addTieScore();
             }
             else if (computerSelection == 2) {
                 console.log(`${paperRock} YOU LOSE`);
                 roundStatus = "You LOST";
                 roundWinner = winner.COMPUTER;
-                ++compScore;
+                scoreModule.addCompScore();
             }
             else {
                 console.log(`${rockScissor} YOU WIN`);
                 roundStatus = "You WON";
                 roundWinner = winner.PLAYER;
-                ++playerScore;
+                scoreModule.addPlayerScore();
             }
             break;
         case "PAPER":
@@ -78,19 +146,19 @@ function updateScores(playerselection, computerSelection) {
                 console.log(`${paperRock} YOU WIN!`);
                 roundStatus = "You WON";
                 roundWinner = winner.PLAYER;
-                ++playerScore;
+                scoreModule.addPlayerScore();
             }
             else if (computerSelection == 2) {
                 console.log(`YOU TIED`);
                 roundStatus = "You Tied";
                 roundWinner = winner.TIE;
-                ++tieScore
+                scoreModule.addTieScore();
             }
             else {
                 console.log(`${paperScissor} YOU LOSE!`);
                 roundStatus = "You LOST";
                 roundWinner = winner.COMPUTER;
-                ++compScore;
+                scoreModule.addCompScore();
             }
             break;
         case "SCISSORS":
@@ -98,19 +166,19 @@ function updateScores(playerselection, computerSelection) {
                 console.log(`${rockScissor} YOU LOSE!`)
                 roundStatus = "You LOST";
                 roundWinner = winner.COMPUTER;
-                ++compScore;
+                scoreModule.addCompScore();
             }
             else if (computerSelection == 2) {
                 console.log(`${paperScissor} YOU WIN`)
                 roundStatus = "You WON";
                 roundWinner = winner.PLAYER;
-                ++playerScore;
+                scoreModule.addPlayerScore();
             }
             else {
                 console.log(`YOU TIED`)
                 roundStatus = "You Tied";
                 roundWinner = winner.TIE;
-                ++tieScore
+                scoreModule.addTieScore();
             }
             break;
     }
@@ -122,8 +190,8 @@ function updateScores(playerselection, computerSelection) {
 }
 
 function checkForWinner() {
-    if(compScore == 5 || playerScore == 5) {
-        checkEndgame = true;
+    if (scoreModule.getCompScore() == 5 || scoreModule.getPlayerScore() == 5) {
+        gameManager.endGame(true);
         endGame();
     }
 }
@@ -132,18 +200,18 @@ function playRound() {
 
     buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
-            if(!checkEndgame){
-            if(round == 0){
-                updateScores(e.target.value, getComputerSelection());
+            if (!(gameManager.getIsEndOfGame())) {
+                if (gameManager.getRound() == 0) {
+                    findRoundWinner(e.target.value, getComputerSelection());
+                }
+                else if ((gameManager.getRound() % 5) != 0) {
+                    findRoundWinner(e.target.value, getComputerSelection());
+                }
+                else if (gameManager.getRound() % 5 == 0) {
+                    clearScoreboard();
+                    findRoundWinner(e.target.value, getComputerSelection());
+                }
             }
-            else if ((round % 5) != 0) {
-                updateScores(e.target.value, getComputerSelection());
-            }
-            else if(round % 5 == 0){
-                clearScoreboard();
-                updateScores(e.target.value, getComputerSelection());
-            }  
-        }     
         });
     });
 
@@ -163,10 +231,10 @@ function updateScoreboard(roundWinner) {
     let scoreboardRoundNumber = document.createElement("span");
     let scoreboardPlayerSpan = document.createElement("span");
     let scoreboardCompSpan = document.createElement("span");
-    scoreboardRoundNumber.textContent = round;
+    scoreboardRoundNumber.textContent = gameManager.getRound();
     spanRound = roundColumn.appendChild(scoreboardRoundNumber);
     spanRound.classList.add("roundNumberScorboard");
-    
+
     if (roundWinner == winner.PLAYER) {
         playerWin = "W";
         computerWin = "L";
@@ -186,27 +254,115 @@ function updateScoreboard(roundWinner) {
     if (roundWinner == winner.TIE) {
         playerWin = "T";
         computerWin = "T";
-        scoreboardPlayerSpan.style.color = colorTie;
-        scoreboardCompSpan.style.color = colorTie;
-        document.getElementById("playerTitle").style.backgroundColor = colorTie;
-        document.getElementById("compTitle").style.backgroundColor = colorTie;
+        scoreboardPlayerSpan.style.color = COLORTIE;
+        scoreboardCompSpan.style.color = COLORTIE;
+        document.getElementById("playerTitle").style.backgroundColor = COLORTIE;
+        document.getElementById("compTitle").style.backgroundColor = COLORTIE;
         document.getElementById("compTitle").style.color = "black";
         document.getElementById("playerTitle").style.color = "black";
     }
 
     scoreboardPlayerSpan.textContent = playerWin;
     scoreboardCompSpan.textContent = computerWin;
-    console.log(playerWin);
     spanP = playerColumn.appendChild(scoreboardPlayerSpan);
     spanP.classList.add("playerRoundStatus");
     spanC = compColumn.appendChild(scoreboardCompSpan);
     spanC.classList.add("compRoundStatus");
-    playerTotal.textContent = playerScore;
-    compTotal.textContent = compScore;
+    playerTotal.textContent = scoreModule.getPlayerScore();
+    console.log("Player Total: " + scoreModule.getPlayerScore());
+    compTotal.textContent = scoreModule.getCompScore();
 
 
 }
 
+function clearScoreboard() {
+    PlayerRoundStatusChild = document.querySelectorAll(".playerRoundStatus");
+    compRoundStatusChild = document.querySelectorAll(".compRoundStatus");
+    playerScoreboard = document.getElementById("playerScore");
+    compScoreboard = document.getElementById("compScore");
+    scoreboardRoundNumber = document.querySelectorAll(".roundNumberScorboard");
+    parentRound = document.getElementById("roundNum");
+    PlayerRoundStatusChild.forEach(child => playerScoreboard.removeChild(child));
+    compRoundStatusChild.forEach(child => compScoreboard.removeChild(child));
+    scoreboardRoundNumber.forEach(child => parentRound.removeChild(child));
+}
+
+function finalScore() {
+    let endgameMessage = `Player Won ${scoreModule.getPlayerScore()} rounds, Computer won ${scoreModule.getCompScore()} rounds, ${scoreModule.getTieScore()} rounds were a TIE.`
+    let endgameWinner;
+    let winFlag = document.getElementById("winnerFlag");
+    if (scoreModule.getPlayerScore() == 5) {
+        endgameWinner = "You WON the Game";
+        endgameColor = colorWin;
+        winFlag.classList.remove("inProgress");
+        winFlag.classList.add("playerWin");
+    }
+    if (scoreModule.getCompScore() == 5) {
+        endgameWinner = "You LOST the Game"
+        endgameColor = colorLose;
+        winFlag.classList.remove("inProgress");
+        winFlag.classList.add("compWin");
+    }
+    roundLog.textContent = `${endgameMessage} \n ${endgameWinner}`
+    roundLog.style.color = endgameColor;
+
+}
+
+function endGame() {
+    buttons.forEach((button) => {
+        button.removeEventListener('click', (e) => {
+        });
+    });
+    finalScore();
+}
+
+function resetGame() {
+    console.log("Restarting Game")
+    scoreModule.resetScores;
+    gameManager.resetRound();
+    roundLog.textContent = "";
+    roundLog.style.color = "";
+    gameManager.endGame(false);
+    document.querySelector('#scoreComp').textContent = scoreModule.getCompScore();
+    document.querySelector('#scorePlayer').textContent = scoreModule.getPlayerScore();
+    
+    clearScoreboard();
+
+    document.getElementById("playerTitle").style.backgroundColor = "";
+    document.getElementById("compTitle").style.backgroundColor = "";
+    document.getElementById("compTitle").style.color = "";
+    document.getElementById("playerTitle").style.color = "";
+    
+    if (document.getElementById("winnerFlag").classList.contains("playerWin")) {
+        document.getElementById("winnerFlag").classList.remove("playerWin");
+    }
+    if (document.getElementById("winnerFlag").classList.contains("compWin")) {
+        document.getElementById("winnerFlag").classList.remove("compWin");
+    }
+    document.getElementById("winnerFlag").classList.add("inProgress");
+
+
+
+    document.getElementById("playerSRC").src = "images/transparent.png";
+    document.getElementById("compSRC").src = "images/transparent.png";
+}
+//#endregion
+
+//#region HELPER AND MISC FUCTIONS
+function computerText(computerChoice) // Converts computer selection from integer to string.
+{
+    let computerText;
+    if (computerChoice == 1) {
+        computerText = "ROCK"
+    }
+    else if (computerChoice == 2) {
+        computerText = "PAPER"
+    }
+    else {
+        computerText = "SCISSORS"
+    }
+    return computerText;
+}
 function displayImage(playerselection, computerSelection) {
     console.log("selection:" + computerSelection)
     if (playerselection == 'PAPER') {
@@ -228,103 +384,11 @@ function displayImage(playerselection, computerSelection) {
     if (computerSelection == 3) {
         document.getElementById("compSRC").src = image.SCISSORS;
     }
-
 }
-
-function clearScoreboard(){
-    PlayerRoundStatusChild = document.querySelectorAll(".playerRoundStatus");
-    compRoundStatusChild = document.querySelectorAll(".compRoundStatus");
-    playerScoreboard = document.getElementById("playerScore");
-    compScoreboard = document.getElementById("compScore");
-    scoreboardRoundNumber = document.querySelectorAll(".roundNumberScorboard");
-    parentRound = document.getElementById("roundNum");
-    PlayerRoundStatusChild.forEach(child => playerScoreboard.removeChild(child));
-    compRoundStatusChild.forEach(child => compScoreboard.removeChild(child));
-    scoreboardRoundNumber.forEach(child => parentRound.removeChild(child));
-}
-
-function finalScore() {
-    let endgameMessage = `Player Won ${playerScore} rounds, Computer won ${compScore} rounds, ${tieScore} rounds were a TIE.`
-    let endgameWinner;
-    let winFlag = document.getElementById("winnerFlag");
-    if (playerScore == 5) {
-        endgameWinner = "You WON the Game";
-        endgameColor = colorWin;
-        winFlag.classList.remove("inProgress");
-        winFlag.classList.add("playerWin");
-    }
-    if(compScore == 5){
-        endgameWinner = "You LOST the Game"
-        endgameColor = colorLose;
-        winFlag.classList.remove("inProgress");
-        winFlag.classList.add("compWin");
-    }
-/*     else if (playerScore == compScore) {
-        endgameWinner = "You Tied the Game";
-        endgameColor = colorTie;
-    }
- */
-    roundLog.textContent = `${endgameMessage} \n ${endgameWinner}`
-    roundLog.style.color = endgameColor;
-
-}
-
 function randomInt(min, max) // Get random integer
 {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+//#endregion
 
-function computerText(computerChoice) // Converts computer selection from integer to string.
-{
-    let computerText;
-    if (computerChoice == 1) {
-        computerText = "ROCK"
-    }
-    else if (computerChoice == 2) {
-        computerText = "PAPER"
-    }
-    else {
-        computerText = "SCISSORS"
-    }
-    return computerText;
-}
-
-function endGame() {
- buttons.forEach((button) => {
-        button.removeEventListener('click', (e) => {
-        });
-    });
-    finalScore();
-}
-
-
-
-function reload() {
-    console.log("Restarting Game")
-    playerScore = 0;
-    compScore = 0;
-    round = 0;
-    roundLog.textContent = "";
-    roundLog.style.color = "";
-    checkEndgame = false;
-    document.querySelector('#scoreComp').textContent = compScore;
-    document.querySelector('#scorePlayer').textContent = playerScore;
-    clearScoreboard();
-
-    document.getElementById("playerTitle").style.backgroundColor = "";
-    document.getElementById("compTitle").style.backgroundColor = "";
-    document.getElementById("compTitle").style.color = "";
-    document.getElementById("playerTitle").style.color = "";
-    if (document.getElementById("winnerFlag").classList.contains("playerWin")) {
-        document.getElementById("winnerFlag").classList.remove("playerWin");
-    }
-    if (document.getElementById("winnerFlag").classList.contains("compWin")) {
-        document.getElementById("winnerFlag").classList.remove("compWin");
-    }
-    document.getElementById("winnerFlag").classList.add("inProgress");
-
-    
-    
-    document.getElementById("playerSRC").src = "images/transparent.png";
-    document.getElementById("compSRC").src = "images/transparent.png";
-}
+playGame();
