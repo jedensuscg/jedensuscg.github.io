@@ -1,81 +1,74 @@
-let container = document.getElementById("container");
+//#region CONSTANT AND GLOBALS
+let mouseButtonPressed = false;
+const container = document.getElementById("container");
+const mouseButtonToDraw = document.getElementById("mouseButtonToDrawCheck");
+const colors = document.querySelectorAll(".inkSwatch");
+const classColors = ["gridSquareBlack", "gridSquareRed", "gridSquareBlue", "gridSquareGreen"];
+//#endregion
 
-let boardSize = 800;
-let inkColor = "gridSquareBlack";
-let shiftToDraw = document.getElementById("shiftDrawCheck");
-let shiftKeyPressed = false;
-let classToRemove;
-let gridSize = 50;
-console.log(gridSize)
-let classColors = ["gridSquareBlack", "gridSquareRed", "gridSquareBlue", "gridSquareGreen"]
-let drawInk = function (e) {
+//#region REVEALING MODULES AND MANAGERS
+var gridSettingsModule = (function () {
+   var boardSize = 500;
+   var gridSize = 50;
 
-    if (shiftToDraw.checked == true) {
-        if (shiftKeyPressed) {
-            console.log(checkForExistingColor(e))
-            if (checkForExistingColor(e)) {
-                e.target.classList.replace(classToRemove, inkColor);
-            }
-            if (!checkForExistingColor(e)) {
-                e.target.classList.add(inkColor);
-            }
-        }
+   function changeBoardSize(newBoardSize) {
+       boardSize = newBoardSize;
+   }
+   function changeGridSize(newGridSize) {
+       gridSize = newGridSize;
+   }
+   function getBoardSize() {
+       return boardSize;
+   }
+   function getGridSize() {
+       return gridSize;
+   }
+   return {
+       changeBoardSize,
+       changeGridSize,
+       getBoardSize,
+       getGridSize
+   }
+})();
+var colorManager = (function () {
+    var inkColor = "gridSquareBlack"
+    var colorToRemove;
+
+    function changeInkColor(newInkColor) {
+        inkColor = newInkColor;
     }
-    if (shiftToDraw.checked == false) {
-        if (!shiftKeyPressed) {
-            console.log(checkForExistingColor(e))
-            if (checkForExistingColor(e)) {
-                e.target.classList.replace(classToRemove, inkColor);
-            }
-            if (!checkForExistingColor(e)) {
-                e.target.classList.add(inkColor);
-            }
-        }
+    function changeColorToRemove(removeColor) {
+        colorToRemove = removeColor;
+    }
+    function getInkColor() {
+        return inkColor;
+    }
+    function getColorToRemove() {
+        return colorToRemove;
+    }
+    return {
+        changeInkColor,
+        changeColorToRemove,
+        getInkColor,
+        getColorToRemove
     }
 
-};
+ })();
+//#endregion
 
-function checkForExistingColor(event) {
-    var containsColor;
-    if (event.target.classList.contains(classColors[0])) {
-        classToRemove = classColors[0];
-        containsColor = true;
-        console.log(classColors[0])
-    }
-    else if (event.target.classList.contains(classColors[1])) {
-        classToRemove = classColors[1];
-        containsColor = true;
-        console.log(classColors[1])
-    }
-    else if (event.target.classList.contains(classColors[2])) {
-        classToRemove = classColors[2];
-        containsColor = true;
-        console.log(classColors[2])
-    }
-    else if (event.target.classList.contains(classColors[3])) {
-        classToRemove = classColors[3];
-        containsColor = true;
-        console.log(classColors[3])
-    }
-    else {
-        containsColor = false;
-    }
-    return containsColor;
-
-}
-
-// Begin Functions
-addSingleListeners();
+addListeners();
 start();
 
 function start() {
 
-    generateGrid(gridSize);
+    generateGrid(gridSettingsModule.getGridSize());
     addGridSquareListeners();
     showInfo();
 }
 
+//#region GRID GENERATION AND CONTROL
 function generateGrid(currentGridSize) {
+    let gridArray = [];
     for (let i = 0; i < currentGridSize; i++) {
         let row = document.createElement("div");
         row.className = "row";
@@ -86,43 +79,6 @@ function generateGrid(currentGridSize) {
         }
         container.appendChild(row);
     }
-}
-
-function addSingleListeners() {
-    //Add reset button listener
-    document.getElementById("erase").addEventListener("click", eraseSquares)
-
-    //Add shift key listener
-    window.addEventListener('mousedown', (e) => {
-        if (e) {
-            shiftKeyPressed = true;
-        }
-    });
-    window.addEventListener('mouseup', (e) => {
-        if (e) {
-            shiftKeyPressed = false;
-        }
-    })
-
-    //Add color swatch listeners
-    colors = document.querySelectorAll(".inkSwatch");
-    colors.forEach(color => {
-        color.addEventListener('mousedown', (e) => {
-            inkColor = e.target.getAttribute("data-color");
-            console.log(inkColor)
-            color.classList.add("inkSwatchSelected")
-            deselectOtherColors();
-        });
-    })
-}
-function deselectOtherColors() {
-    console.log(inkColor)
-    colors.forEach(col => {
-        console.log(col.getAttribute("data-color"))
-        if (col.getAttribute("data-color") != inkColor) {
-            col.classList.remove("inkSwatchSelected")
-        }
-    })
 }
 
 function addGridSquareListeners() {
@@ -139,8 +95,21 @@ function addGridSquareListeners() {
 function eraseSquares() {
     let squares = document.querySelectorAll(".gridSquare");
     squares.forEach((square) => {
-        if (square.classList.contains("gridSquareBlack")) {
-            square.classList.remove("gridSquareBlack");
+        if (square.getAttribute("data-colored") == 'true') {
+            console.log("removing")
+            square.classList.remove(square.getAttribute('data-color'));
+            square.removeAttribute('data-color');
+        }
+    })
+}
+
+function resetBoard() {
+    let squares = document.querySelectorAll(".gridSquare");
+    squares.forEach((square) => {
+        if (square.getAttribute("data-colored") == 'true') {
+            console.log("removing")
+            square.classList.remove(square.getAttribute('data-color'));
+            square.removeAttribute('data-color');
         }
     })
     changeSize();
@@ -148,26 +117,133 @@ function eraseSquares() {
 
 function changeSize() {
     let grid = document.getElementById("container");
-    boardSize = document.getElementById("squareSize").value;
+    gridSettingsModule.changeBoardSize(document.getElementById("squareSize").value);
     grid.innerHTML = "";
-    gridSize = document.getElementById("gridSize").value;
+    gridSettingsModule.changeGridSize(document.getElementById("gridSize").value);
     console.log(changeSize)
-    grid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`
-    grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`
-    grid.style.setProperty('--grid-squares', gridSize);
+    grid.style.gridTemplateRows = `repeat(${gridSettingsModule.getGridSize()}, 1fr)`
+    grid.style.gridTemplateColumns = `repeat(${gridSettingsModule.getGridSize()}, 1fr)`
+    grid.style.setProperty('--grid-squares', gridSettingsModule.getGridSize());
     start();
 
 
-    boardSize = boardSize + "px";
-    document.documentElement.style.setProperty('--grid-size', boardSize);
+    let displayBoardSize = gridSettingsModule.getBoardSize() + "px";
+    document.documentElement.style.setProperty('--grid-size', displayBoardSize);
 
+}
+//#endregion
+
+//#region COLOR FUNCTIONS
+function drawInk(e) {
+
+    if (mouseButtonToDraw.checked == true) {
+        if (mouseButtonPressed) {
+            console.log(checkForExistingColor(e))
+            if (checkForExistingColor(e)) {
+                e.target.classList.replace(colorManager.getColorToRemove(), colorManager.getInkColor());
+                e.target.setAttribute('data-colored', true);
+                e.target.setAttribute('data-color', colorManager.getInkColor());
+            }
+            if (!checkForExistingColor(e)) {
+                e.target.classList.add(colorManager.getInkColor());
+                e.target.setAttribute('data-colored', true)
+                e.target.setAttribute('data-color', colorManager.getInkColor());
+            }
+        }
+    }
+    if (mouseButtonToDraw.checked == false) {
+        if (!mouseButtonPressed) {
+            console.log(checkForExistingColor(e))
+            if (checkForExistingColor(e)) {
+                e.target.classList.replace(colorManager.getColorToRemove(), colorManager.getInkColor());
+                e.target.setAttribute('data-colored', true);
+                e.target.setAttribute('data-color', colorManager.getInkColor());
+            }
+            if (!checkForExistingColor(e)) {
+                e.target.classList.add(colorManager.getInkColor());
+                e.target.setAttribute('data-colored', true);
+                e.target.setAttribute('data-color', colorManager.getInkColor());
+            }
+        }
+    }
+
+};
+
+function checkForExistingColor(event) {
+    var containsColor;
+    if (event.target.classList.contains(classColors[0])) {
+        colorManager.changeColorToRemove(classColors[0]);
+        containsColor = true;
+        console.log(classColors[0])
+    }
+    else if (event.target.classList.contains(classColors[1])) {
+        colorManager.changeColorToRemove(classColors[1]);
+        containsColor = true;
+        console.log(classColors[1])
+    }
+    else if (event.target.classList.contains(classColors[2])) {
+        colorManager.changeColorToRemove(classColors[2]);
+        containsColor = true;
+        console.log(classColors[2])
+    }
+    else if (event.target.classList.contains(classColors[3])) {
+        colorManager.changeColorToRemove(classColors[3]);
+        containsColor = true;
+        console.log(classColors[3])
+    }
+    else {
+        containsColor = false;
+    }
+    return containsColor;
+
+}
+
+function deselectOtherColors() {
+    console.log(colorManager.getInkColor())
+    colors.forEach(col => {
+        console.log(col.getAttribute("data-color"))
+        if (col.getAttribute("data-color") != colorManager.getInkColor()) {
+            col.classList.remove("inkSwatchSelected")
+        }
+    })
+}
+//#endregion
+
+//#region HELPER AND MIST
+function addListeners() {
+    //Add reset button listener
+    document.getElementById("erase").addEventListener("click", eraseSquares)
+    document.getElementById("reset").addEventListener("click", resetBoard)
+
+    //Add mouse button listener
+    window.addEventListener('mousedown', (e) => {
+        if (e) {
+            mouseButtonPressed = true;
+        }
+    });
+    window.addEventListener('mouseup', (e) => {
+        if (e) {
+            mouseButtonPressed = false;
+        }
+    })
+
+    //Add color swatch listeners
+    colors.forEach(color => {
+        color.addEventListener('mousedown', (e) => {
+            colorManager.changeInkColor(e.target.getAttribute("data-color"));
+            console.log(colorManager.getInkColor())
+            color.classList.add("inkSwatchSelected")
+            deselectOtherColors();
+        });
+    })
 }
 
 function showInfo() {
     var resolutionLabel = document.getElementById("resolutionInfo");
     var boardSizeLabel = document.getElementById("boardSize");
     var squareSizeLabel = document.getElementById("totalSquares");
-    resolutionLabel.textContent = `Board Resolution: ${gridSize} X ${gridSize} squares`
-    boardSizeLabel.textContent = `Board Size: ${boardSize} X ${boardSize} pixels`
-    squareSizeLabel.textContent = `Size of Each Square: ${boardSize / gridSize} pixels`
+    resolutionLabel.textContent = `Board Resolution: ${gridSettingsModule.getGridSize()} X ${gridSettingsModule.getGridSize()} squares`
+    boardSizeLabel.textContent = `Board Size: ${gridSettingsModule.getBoardSize()} X ${gridSettingsModule.getBoardSize()} pixels`
+    squareSizeLabel.textContent = `Size of Each Square: ${gridSettingsModule.getBoardSize() / gridSettingsModule.getGridSize()} pixels`
 }
+//#endregion

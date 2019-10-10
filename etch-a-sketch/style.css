@@ -1,17 +1,17 @@
+*{
+    box-sizing: border-box;
+}
 :root {
     --grid-size: 500px;
     --border-sides-width: 30px;
     --border-bottom-width: 100px;
 }
-*{
-    box-sizing: border-box;
-}
-
 body{
     min-width: 800px;
     --ink-color: black;
 }
 
+/*#region====SKETCHBOARD GRID====*/
 #boardWrapper{
     position: absolute;
     width: 100%;
@@ -34,27 +34,30 @@ body{
     grid-template-rows: repeat(var(--grid-squares), 1fr);
     background-color: lightgray;
 }
-
-.author {
-    padding-top: 2px;
-    height:calc((var(--border-bottom-width) *.5) - 5px);
-    width:calc(var(--grid-size) + var(--border-sides-width));
+.gridSquare{
+    min-height: calc(var(--grid-size) / var(--grid-squares));
+    min-width: calc(var(--grid-size) / var(--grid-squares));
+    border: 1px solid rgb(202, 200, 200);
 }
 
-
-#bottomPanel{
-    text-align: center;
-    position: relative;
-    margin: 0 auto;
-    bottom:260px;
-    width: calc(var(--grid-size) + var(--border-sides-width));
-    height: calc(var(--border-bottom-width) *.5);
-    background-color: rgb(39, 38, 38);
-    color: white;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-    font-size: calc(var(--grid-size) * .021);
+/*#region---Grid Colors---*/
+.gridSquareBlack{
+    background-color: black;
 }
+.gridSquareRed{
+    background-color: red;
+}
+.gridSquareGreen{
+    background-color: green;
+}
+.gridSquareBlue{
+    background-color: blue;
+}
+/*#endregion Grid Colors*/
+
+/*#endregion===SKETCHBOARD GRID===*/
+
+/*#region========OPTIONS AND SETTINGS ROW========*/
 .topBar{
     min-width: 1200px;
     display: grid;
@@ -62,42 +65,10 @@ body{
     padding-bottom: 50px;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
-}
-.options{
-    position: relative;
-    left: 40%;
-    top: 25%;
+
 }
 
-.information{
-    position: relative;
-    display: block;
-    top: 1em;
-    right: 10%;
-    background-color: bisque;
-    width: 350px;
-    border: 2px inset black;
-    box-shadow: 
-        inset 3px 3px rgba(114, 2, 2, 0.986),
-        inset -3px -3px rgba(114, 2, 2, 0.986);
-    padding-left: 10px;
-    padding-top: 10px;
-}
-
-#directions{
-    padding-bottom: 10px;
-    font-weight: 700;
-}
-
-#statHeader{
-    font-weight: 700;
-    padding-bottom: 5px;
-    text-decoration: underline;
-}
-
-#totalSquares{
-    padding-bottom: 5px;
-}
+/*#region---Color Picker---*/
 #colorPicker{
     box-sizing: unset;
     position: relative;
@@ -116,7 +87,6 @@ body{
     grid-area: 1 / 1 / 2 / 2;
     background-color: black;
 }
-
 #redInk {
     grid-area: 1 / 2 / 2 / 2;
     background-color: red;
@@ -129,7 +99,6 @@ body{
     grid-area: 2 / 2 / 3 / 3;
     background-color: blue;
 }
-
 .inkSwatch {
     height: 50px;
     width: 50px;
@@ -139,50 +108,85 @@ body{
     border: 2px solid yellow;
     transform: scale(1.2);
 }
-
 .inkSwatch:active{
     border: 2px solid purple;
 }
-
 .inkSwatchSelected{
     border: 3px solid yellow;
 }
+/*#endregion Color Picker*/
 
-.infoText{
-    display: block;
-}
-.gridSquare{
-    min-height: calc(var(--grid-size) / var(--grid-squares));
-    min-width: calc(var(--grid-size) / var(--grid-squares));
-    border: 1px solid rgb(202, 200, 200);
-}
-.gridSquareBlack{
-    background-color: black;
-}
-.gridSquareRed{
-    background-color: red;
-}
-.gridSquareGreen{
-    background-color: green;
-}
-.gridSquareBlue{
-    background-color: blue;
-}
-
-.erase{
+/*#region---Grid Option Area---*/
+.options{
     position: relative;
+    left: 40%;
+    top: 25%;
 }
 .inputDiv{
     padding-bottom: 2px;
 }
-
 .inputField {
     width: 65px;;
 }
-
-.circle{
+.erase{
     position: relative;
-    min-width: calc(800px / 16);
-    min-height: calc(800px / 16);
-    background-color: black;
 }
+/*#endregion---Grid Options Area---*/
+
+/*#region---Information Display---*/
+.information{
+    position: relative;
+    display: block;
+    top: 1em;
+    right: 10%;
+    background-color: bisque;
+    width: 350px;
+    border: 2px inset black;
+    box-shadow: 
+        inset 3px 3px rgba(114, 2, 2, 0.986),
+        inset -3px -3px rgba(114, 2, 2, 0.986);
+    padding-left: 10px;
+    padding-top: 10px;
+}
+#directions{
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+#statHeader{
+    font-weight: 700;
+    padding-bottom: 5px;
+    text-decoration: underline;
+}
+#totalSquares{
+    padding-bottom: 5px;
+}
+.infoText{
+    display: block;
+}
+/*#endregion---Information Display---*/
+
+/*#endregion ===OPTIONS AND SETTINGS ROW===*/
+
+/*#region========BOTTOM OF SKETCHBOARD========*/
+#bottomPanel{
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    bottom:260px;
+    width: calc(var(--grid-size) + var(--border-sides-width));
+    height: calc(var(--border-bottom-width) *.5);
+    background-color: rgb(39, 38, 38);
+    color: white;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    font-size: calc(var(--grid-size) * .021);
+}
+.author {
+    padding-top: 2px;
+    height:calc((var(--border-bottom-width) *.5) - 5px);
+    width:calc(var(--grid-size) + var(--border-sides-width));
+}
+/*#endregion===FOOTER AND MISC===*/
+
+
+
