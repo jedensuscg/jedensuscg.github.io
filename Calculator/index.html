@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="calculator.js" async></script>
+    <link id="style" rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+</head>
+<body ontouchstart>
+    
+<main #calculator>
+
+    <div class="wrapper">
+            <input type="button" id="toggleLight" value="TOGGLE LIGHT">
+    <div class="displayBackground">
+        <div id="upperSpan" class="displaySpan">
+            <span id="historySpan"></span>
+            <span name="upperDisplay" id="upperDisplay" class="display"></span>
+        </div>
+        <div id="middleSpan">
+            <span name="errorText" id="errorText" class="display"></span>
+        </div>
+        <div id="lowerSpan" class="displaySpan">
+            <span name="operatorText" id="operatorText" class="display"></span>
+            <span name="lowerDisplay" id="lowerDisplay" class="display"></span>
+        </div>
+        <div id="memoryIndContainer">
+                <span data='1' class="memoryIndicator" id="memoryIndicator1"> </span>
+                <span data='2' class="memoryIndicator" id="memoryIndicator2"> </span>
+                <span data='3' class="memoryIndicator" id="memoryIndicator3"> </span>
+        </div>
+
+    </div>
+    <div id="memoryContainer">
+        <input data='1' type="button" value="M1" class="memoryButton" id="memory1">
+        <input data='2' type="button" value="M2" class="memoryButton" id="memory2">
+        <input data='3' type="button" value="M3" class="memoryButton" id="memory3">
+        <div id="logoLine">
+            <input type="button" value="CLR MEM" class="clearMemoryButton" id="clearMemory">
+        </div>
+    </div>
+
+    <div id="operatorContainer">
+        <input type="button" value="&plus;" id="operator" data="1">
+        <input type="button" value="&minus;" id="operator" data="2">
+        <input type="button" value="&times;" id="operator" data="3">
+        <input type="button" value="&divide;" id="operator" data="4">
+        <input type="button" value="AC" key="clear" class="clearKey" id="keyClear">
+    </div>
+
+    <div class="keyPad">
+        <input type="button" value="9" key="9" class="numberKey memOff" id="key9">
+        <input type="button" value="8" key="8" class="numberKey memOff" id="key8">
+        <input type="button" value="7" key="7" class="numberKey memOff" id="key7">
+        <input type="button" value="6" key="6" class="numberKey memOff" id="key6">
+        <input type="button" value="5" key="5" class="numberKey memOff" id="key5">
+        <input type="button" value="4" key="4" class="numberKey memOff" id="key4">
+        <input type="button" value="3" key="3" class="numberKey memOff" id="key3">
+        <input type="button" value="2" key="2" class="numberKey memOff" id="key2">
+        <input type="button" value="1" key="1" class="numberKey memOff" id="key1">
+        <input type="button" value="0" key="0" class="numberKey memOff" id="key0">
+        <input type="button" value="." key="." class="decimalKey memOff" id="keyDot">
+        <input type="button" value="=" key="=" class="equalKey memOff" id="keyEqual">
+
+    </div>
+
+    <span id="total"></span>
+    </div>  
+</main>
+</body> 

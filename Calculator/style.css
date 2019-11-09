@@ -1,0 +1,198 @@
+body {
+    background-color: white;
+}
+
+
+#calculator{
+    position: relative;
+    padding: 0px;
+    width: 100%;
+    margin: auto;
+
+}
+#toggleLight {
+    padding: 0px;
+    margin: 0px;
+    bottom: 10px;
+    box-sizing: border-box;
+    position: relative;
+    left: 25%;
+}
+
+.wrapper{
+    width: 500px;
+    margin: auto;
+    padding: 20px;
+    background: rgb(33,38,66);
+    background: linear-gradient(185deg, rgba(33,38,66,1) 0%, rgba(53,64,87,1) 4%, rgba(113,145,152,1) 93%, rgba(67,102,110,1) 100%);
+    border: rgb(44, 44, 44);
+    border-style: solid;
+    border-width: 10px;
+    border-radius: 10px;
+}
+.keyPad{
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+}
+.keyPad input[type=button]{
+    border-radius: 50px;
+    margin: 5px;
+    box-shadow: 2px 5px 5px rgb(63, 63, 63), -5px -5px 20px rgb(63, 63, 63) inset;
+    height: 110px;
+    text-shadow: 2px 2px rgb(107, 106, 106), -2px -2px white, 2px -2px darkgray, -2px 2px darkgray
+}
+
+.memOff{
+    font-size: 60pt;
+}
+
+.keyPad input[type=button]:active{
+    transform: scale(.95) translateY(5px);
+    color: red;
+}
+/*#region====DISPLAY====*/
+
+/*#region====MEMORY BUTTONS====*/
+#memoryContainer {
+    box-sizing: border-box;
+    width: 66%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.memoryButton, .clearMemoryButton{
+    margin: 2px;
+    width: 60px;
+    height: 35px;
+    border-radius: 40%;
+
+    font-weight: bolder;
+    color: black;
+    box-shadow: 2px 5px 5px rgb(63, 63, 63), 0px -5px 10px rgb(63, 63, 63) inset;
+}
+
+#logoLine{
+
+    position: relative;
+    left: 50px
+
+}
+
+#clearMemory {
+    box-sizing: border-box;
+    margin-left: -30px;
+    width: 90px;
+}
+
+#logoLine {
+    display: inline;
+}
+
+/*#endregion*/
+
+.displayBackground {
+    position: relative;
+    box-shadow: 5px 5px 2px rgb(36, 35, 35) inset, -2px -2px 1px inset, 10px 10px 10px rgba(0, 0, 0, 0.342) inset, -5px -5px 5px rgba(0, 0, 0, 0.342) inset;
+    background-color: lightblue;
+    font-family: 'Share Tech Mono', monospace;
+    color: rgb(54, 54, 54);
+}
+.displaySpan{
+    width: 490px;
+    border: 0px;
+    text-align: right;
+    height: 50px;
+}
+
+#historySpan {
+    font-size: 22pt;
+}
+#operatorText{ 
+    font-size: 40pt;
+}
+
+#upperDisplay{
+    font-size: 22pt;
+}
+
+#upperSpan {
+    padding-top: 10px;
+    height: 40px;
+}
+
+#middleSpan {
+    height: 20px;
+}
+#lowerSpan{
+    padding-bottom: 5px;
+}
+#lowerDisplay{
+    font-size: 40pt;
+}
+#errorText{
+    position: relative;
+    left: 5px;
+    bottom: 10px;
+    text-align: left;
+    color: red;
+    font-size: 18pt;
+}
+
+#memoryIndContainer {
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 6px;
+}
+
+.memoryIndicator {
+    font-size: 30pt;
+    width: 24px;
+}
+.memoryMode {
+    font-size: 15pt;
+    color: red;
+}
+/*#endregion*/
+
+/*#region====OPERATOR BUTTONS====*/
+#operatorContainer{
+    display: flex;
+    width: 500px;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+
+#operatorContainer input{
+    font-size: 50pt;
+    vertical-align: middle;
+    font-weight: bolder;
+    width: 90px;
+    margin-bottom: 10px;
+    color: black;
+    box-shadow: 2px 5px 5px rgb(63, 63, 63), 0px -5px 10px rgb(63, 63, 63) inset;
+    text-shadow: 2px 2px rgb(107, 106, 106), -1px -1px white, 1px -1px darkgray, -2px 2px darkgray
+}
+
+#keyClear {
+    background-color: red;
+    font-size: 40pt !important;
+    text-shadow: 2px 2px rgb(151, 1, 1), -2px -2px rgb(255, 151, 151), 2px -2px red, -2px 2px rgb(255, 151, 151) !important;
+}
+#operatorContainer input:active{
+    transform: scale(.95) translateY(5px);
+
+}
+#operatorContainer input[value=CLR]{
+    font-size: 35px;
+    
+}
+/*#endregion*/
+
+
+
