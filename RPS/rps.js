@@ -86,7 +86,8 @@ var scoreModule = (function () {
         getCompScore,
         addTieScore,
         addPlayerScore,
-        addCompScore
+        addCompScore,
+        resetScores
     }
 })();
 
@@ -318,7 +319,7 @@ function endGame() {
 
 function resetGame() {
     console.log("Restarting Game")
-    scoreModule.resetScores;
+    scoreModule.resetScores();
     gameManager.resetRound();
     roundLog.textContent = "";
     roundLog.style.color = "";
